@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td } from "@/components/ui/table";
 import { CSVLink } from "react-csv";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+} from "@/components/ui/table";
 
 const Index = () => {
   const [companyName, setCompanyName] = useState("");
@@ -84,32 +93,38 @@ const Index = () => {
         {/* Add Excel download button here */}
       </div>
       <Table className="table-auto w-full">
-        <Thead>
-          <Tr>
+        <TableCaption>Employee Details</TableCaption>
+        <TableHeader>
+          <TableRow>
             {headers.map((header) => (
-              <Th key={header.key}>{header.label}</Th>
+              <TableHead key={header.key}>{header.label}</TableHead>
             ))}
-          </Tr>
-        </Thead>
-        <Tbody>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {employees.map((employee) => (
-            <Tr key={employee.id}>
-              <Td>{employee.name}</Td>
-              <Td>{employee.id}</Td>
-              <Td>{employee.pan}</Td>
-              <Td>{employee.pran}</Td>
-              <Td>{employee.totalEmployerContribution}</Td>
-              <Td>{employee.pensionEquityFund1}</Td>
-              <Td>{employee.equityContribution1}</Td>
-              <Td>{employee.pensionGsecFund1}</Td>
-              <Td>{employee.gsecContribution1}</Td>
-              <Td>{employee.pensionCBonFund1}</Td>
-              <Td>{employee.cBonContribution1}</Td>
-              <Td>{employee.pensionAltFFund1}</Td>
-              <Td>{employee.altFContribution1}</Td>
-            </Tr>
+            <TableRow key={employee.id}>
+              <TableCell>{employee.name}</TableCell>
+              <TableCell>{employee.id}</TableCell>
+              <TableCell>{employee.pan}</TableCell>
+              <TableCell>{employee.pran}</TableCell>
+              <TableCell>{employee.totalEmployerContribution}</TableCell>
+              <TableCell>{employee.pensionEquityFund1}</TableCell>
+              <TableCell>{employee.equityContribution1}</TableCell>
+              <TableCell>{employee.pensionGsecFund1}</TableCell>
+              <TableCell>{employee.gsecContribution1}</TableCell>
+              <TableCell>{employee.pensionCBonFund1}</TableCell>
+              <TableCell>{employee.cBonContribution1}</TableCell>
+              <TableCell>{employee.pensionAltFFund1}</TableCell>
+              <TableCell>{employee.altFContribution1}</TableCell>
+            </TableRow>
           ))}
-        </Tbody>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={headers.length}>End of Data</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
     </div>
   );
