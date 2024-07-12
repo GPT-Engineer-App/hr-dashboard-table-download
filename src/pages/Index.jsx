@@ -8,17 +8,45 @@ const Index = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch company name
-    fetch("/api/company-name")
-      .then((response) => response.json())
-      .then((data) => setCompanyName(data.name))
-      .catch((error) => setError("Failed to load company name"));
+    // Use dummy data for company name
+    const dummyCompanyName = "Acme Inc";
+    setCompanyName(dummyCompanyName);
 
-    // Fetch employee data
-    fetch("/api/employees")
-      .then((response) => response.json())
-      .then((data) => setEmployees(data))
-      .catch((error) => setError("Failed to load employee data"));
+    // Use dummy data for employees
+    const dummyEmployees = [
+      {
+        id: 1,
+        name: "John Doe",
+        pan: "ABCDE1234F",
+        pran: "123456789012",
+        totalEmployerContribution: 1000,
+        pensionEquityFund1: 200,
+        equityContribution1: 300,
+        pensionGsecFund1: 150,
+        gsecContribution1: 100,
+        pensionCBonFund1: 250,
+        cBonContribution1: 200,
+        pensionAltFFund1: 50,
+        altFContribution1: 100,
+      },
+      {
+        id: 2,
+        name: "Jane Smith",
+        pan: "FGHIJ5678K",
+        pran: "987654321098",
+        totalEmployerContribution: 1200,
+        pensionEquityFund1: 220,
+        equityContribution1: 320,
+        pensionGsecFund1: 170,
+        gsecContribution1: 120,
+        pensionCBonFund1: 270,
+        cBonContribution1: 220,
+        pensionAltFFund1: 70,
+        altFContribution1: 120,
+      },
+      // Add more dummy employees as needed
+    ];
+    setEmployees(dummyEmployees);
   }, []);
 
   const headers = [
