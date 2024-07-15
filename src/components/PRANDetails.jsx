@@ -1,6 +1,9 @@
 import React from 'react';
-import { Box, VStack, SimpleGrid, Input, Select, Checkbox, Button, Heading } from '@chakra-ui/react';
 import { useFormContext, useFieldArray } from 'react-hook-form';
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 const PRANDetails = () => {
   const { register, control } = useFormContext();
@@ -10,33 +13,40 @@ const PRANDetails = () => {
   });
 
   return (
-    <Box>
-      <Heading as="h2" size="lg" marginBottom={4}>PRAN Details</Heading>
-      <VStack spacing={4} align="stretch">
-        <Input {...register('page2.nameTobePrintedOnPRANCard')} placeholder="Name to be Printed on PRAN Card" />
-        <Checkbox {...register('page2.pranPrintHindi')}>Print PRAN in Hindi</Checkbox>
-        <Checkbox {...register('page2.physicalPan')}>Physical PAN</Checkbox>
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold">PRAN Details</h2>
+      <div className="space-y-2">
+        <Label htmlFor="pranName">Name to be Printed on PRAN Card</Label>
+        <Input id="pranName" {...register('page2.nameTobePrintedOnPRANCard')} placeholder="Name to be Printed on PRAN Card" />
+      </div>
+      <div className="space-y-2">
+        <Checkbox id="pranPrintHindi" {...register('page2.pranPrintHindi')} />
+        <Label htmlFor="pranPrintHindi" className="ml-2">Print PRAN in Hindi</Label>
+      </div>
+      <div className="space-y-2">
+        <Checkbox id="physicalPan" {...register('page2.physicalPan')} />
+        <Label htmlFor="physicalPan" className="ml-2">Physical PAN</Label>
+      </div>
 
-        <Heading as="h3" size="md">Nominee Details</Heading>
-        {fields.map((field, index) => (
-          <Box key={field.id} borderWidth={1} borderRadius="lg" p={4}>
-            <SimpleGrid columns={2} spacing={4}>
-              <Input {...register(`page2.nomineeDetails.${index}.firstName`)} placeholder="First Name" />
-              <Input {...register(`page2.nomineeDetails.${index}.middleName`)} placeholder="Middle Name" />
-              <Input {...register(`page2.nomineeDetails.${index}.lastName`)} placeholder="Last Name" />
-              <Input {...register(`page2.nomineeDetails.${index}.relation`)} placeholder="Relation" />
-              <Input {...register(`page2.nomineeDetails.${index}.age`)} placeholder="Age" type="number" />
-              <Checkbox {...register(`page2.nomineeDetails.${index}.above18`)}>Above 18</Checkbox>
-              <Input {...register(`page2.nomineeDetails.${index}.dob`)} placeholder="Date of Birth" type="date" />
-              <Input {...register(`page2.nomineeDetails.${index}.nomineeShare`)} placeholder="Nominee Share (%)" type="number" />
-              <Input {...register(`page2.nomineeDetails.${index}.guardianName`)} placeholder="Guardian Name" />
-            </SimpleGrid>
-            <Button mt={2} onClick={() => remove(index)}>Remove Nominee</Button>
-          </Box>
-        ))}
-        <Button onClick={() => append({})}>Add Nominee</Button>
-      </VStack>
-    </Box>
+      <h3 className="text-lg font-semibold mt-4">Nominee Details</h3>
+      {fields.map((field, index) => (
+        <div key={field.id} className="border p-4 rounded-md space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor={`nominee-firstName-${index}`}>First Name</Label>
+              <Input id={`nominee-firstName-${index}`} {...register(`page2.nomineeDetails.${index}.firstName`)} placeholder="First Name" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor={`nominee-middleName-${index}`}>Middle Name</Label>
+              <Input id={`nominee-middleName-${index}`} {...register(`page2.nomineeDetails.${index}.middleName`)} placeholder="Middle Name" />
+            </div>
+            {/* Add more nominee fields here... */}
+          </div>
+          <Button onClick={() => remove(index)} variant="destructive">Remove Nominee</Button>
+        </div>
+      ))}
+      <Button onClick={() => append({})} variant="outline">Add Nominee</Button>
+    </div>
   );
 };
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Button, Heading, VStack } from '@chakra-ui/react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import PersonalDetails from './PersonalDetails';
 import PRANDetails from './PRANDetails';
 import BankDetails from './BankDetails';
 import DocumentUpload from './DocumentUpload';
+import { useForm, FormProvider } from 'react-hook-form';
 
 const PRANGeneration = () => {
   const [step, setStep] = useState(1);
@@ -20,35 +21,37 @@ const PRANGeneration = () => {
 
   return (
     <FormProvider {...methods}>
-      <Box maxWidth="800px" margin="auto" padding={8}>
-        <Heading as="h1" size="xl" textAlign="center" marginBottom={8}>
-          PRAN Generation
-        </Heading>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <VStack spacing={8}>
-            {step === 1 && <PersonalDetails />}
-            {step === 2 && <PRANDetails />}
-            {step === 3 && <BankDetails />}
-            {step === 4 && <DocumentUpload />}
-            <Box width="100%" display="flex" justifyContent="space-between">
-              {step > 1 && (
-                <Button onClick={prevStep} colorScheme="gray">
-                  Previous
-                </Button>
-              )}
-              {step < 4 ? (
-                <Button onClick={nextStep} colorScheme="blue">
-                  Next
-                </Button>
-              ) : (
-                <Button type="submit" colorScheme="green">
-                  Submit
-                </Button>
-              )}
-            </Box>
-          </VStack>
-        </form>
-      </Box>
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-center">PRAN Generation</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <div className="space-y-8">
+              {step === 1 && <PersonalDetails />}
+              {step === 2 && <PRANDetails />}
+              {step === 3 && <BankDetails />}
+              {step === 4 && <DocumentUpload />}
+              <div className="flex justify-between">
+                {step > 1 && (
+                  <Button onClick={prevStep} variant="outline">
+                    Previous
+                  </Button>
+                )}
+                {step < 4 ? (
+                  <Button onClick={nextStep} className="ml-auto">
+                    Next
+                  </Button>
+                ) : (
+                  <Button type="submit" className="ml-auto">
+                    Submit
+                  </Button>
+                )}
+              </div>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </FormProvider>
   );
 };
